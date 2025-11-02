@@ -343,10 +343,7 @@ class StepDaddy:
             raise ValueError("Channel key not found in upstream response")
         channel_key = channel_key_matches[-1]
 
-        bundle_matches = re.compile(r"const\s+XJZ\s*=\s*\"(.*?)\";").findall(text)
-        if not bundle_matches:
-            raise ValueError("Bundle data missing from upstream response")
-        data = decode_bundle(bundle_matches[-1])
+        data = decode_bundle(source_response.text)
 
         auth_ts = data.get("b_ts")
         auth_sig = data.get("b_sig")
